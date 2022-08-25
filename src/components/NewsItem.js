@@ -1,5 +1,4 @@
 import React from 'react'
-import Spinner from "./Spinner";
 
 const NewsItem = (props) => {
     let {title,description,imageUrl,newsUrl,author,postDate,source} = props;
