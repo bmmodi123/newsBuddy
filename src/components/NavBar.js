@@ -2,8 +2,14 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 // import PropTypes from 'prop-types'
+const capitalize = (word) => {
+  const lower = word.toLowerCase();
+  return lower.charAt(0).toUpperCase() + lower.slice(1);
+}
 
 const NavBar = () => {
+  const newsCategory = ['business','entertainment','environment','food','health','politics','science','sports','technology','top','world'];
+
   return (
     <div>
       <nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
@@ -25,49 +31,20 @@ const NavBar = () => {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <Link
-                  className="nav-link active"
-                  aria-current="page"
-                  to="/general"
-                >
+                <Link className="nav-link active" aria-current="page" to="/top">
                   Home
                 </Link>
               </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/business">
-                  Business
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/entertainment">
-                  Entertainment
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/general">
-                  General
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/health">
-                  Health
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/science">
-                  Science
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/sports">
-                  Sports
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/technology">
-                  Technology
-                </Link>
-              </li>
+
+              {newsCategory.map((catName) => {
+                return(
+                    <li className="nav-item" key={catName}>
+                    <Link className="nav-link" to={`/${catName}`}>
+                      {capitalize(catName)}
+                    </Link>
+                    </li>
+                  )
+              })}
             </ul>
           </div>
         </div>

@@ -8,7 +8,7 @@ const News = (props) => {
 
   const [articles, setArticles] = useState([])
   const [loading, setLoading] = useState(false)
-  const [page, setPage] = useState(1)
+  const [page, setPage] = useState(0)
   const [totalResults, setTotalResults] = useState(0)
 
   const capitalize = (word) => {
@@ -18,28 +18,28 @@ const News = (props) => {
 
   const updateNews = async() => {
     props.setProgress(10);
-    let apiUrl = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=${props.apikey}&page=${page}&pagesize=${props.pageSize}`;
+    let apiUrl = `https://newsdata.io/api/1/news?apiKey=${props.apikey}&country=${props.country}&category=${props.category}&page=${page}&language=en`;
+
     setLoading(true);
     props.setProgress(30);
     let data = await fetch(apiUrl);
     props.setProgress(50);
     let parsedData = await data.json();
     props.setProgress(70);
-
-    setArticles(parsedData.articles);
-    console.log(articles.length);
+    setArticles(parsedData.results);
     setTotalResults(parsedData.totalResults);
     setLoading(false);
     props.setProgress(100);
   }
 
   const fetchMoreData = async() =>{
-    let apiUrl = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=${props.apikey}&page=${page+1}&pagesize=${props.pageSize}`;
+    let apiUrl = `https://newsdata.io/api/1/news?apiKey=${props.apikey}&country=${props.country}&category=${props.category}&page=${page+1}&language=en`;
+    
     setPage(page+1);
     let data = await fetch(apiUrl);
     let parsedData = await data.json();
 
-    setArticles(articles.concat(parsedData.articles));
+    setArticles(articles.concat(parsedData.results));
     setTotalResults(parsedData.totalResults);
 
   }
@@ -49,16 +49,6 @@ const News = (props) => {
     updateNews();
     //eslint-disable-next-line
   }, [])
-
-  // const handlePrevClick = async() =>{
-  //   updateNews(page-1);
-  //   setPage(page-1);
-  // }
-
-  // const handleNextClick = async() =>{
-  //   updateNews(page+1);
-  //   setPage(page+1);
-  // }
 
   return (
       <>
@@ -74,15 +64,15 @@ const News = (props) => {
           <div className="container my-4">
             <div className="row my-2">
               {articles.map((element) => {
-                return <div className="col-md-4 mb-4">
+                return <div className="col-md-4 mb-4" key={element.id}>
                     <NewsItem
                       title={element.title?element.title:"Sorry No Title Found"}
                       description={element.description?element.description:"Sorry No Description Found. Click On Read More To Know More"}
-                      imageUrl={element.urlToImage?element.urlToImage:"https://picsum.photos/300/200?grayscale"}
-                      newsUrl={element.url}
-                      author={element.author}
-                      postDate={element.publishedAt}
-                      source={element.source.name}
+                      imageUrl={element.image_url?element.image_url:"https://picsum.photos/300/200/?blur=10"}
+                      newsUrl={element.link}
+                      author={element.creator}
+                      postDate={element.pubDate}
+                      source={element.source_id}
                     />
                   </div>
               })}
@@ -97,17 +87,12 @@ const News = (props) => {
 
 News.defaultProps = {
   country: 'in',
-  pagesize: 12,
-  category: 'general'
-  // apikey: '7e8d4647f41847db8f6a2481520cf616' 
-  //2debe3e76976453b9438220bf99c1004
+  category: 'top'
 }
 
 News.propTypes = {
   country: PropTypes.string,
-  pagesize: PropTypes.number,
   category: PropTypes.string,
-  apikey: PropTypes.string
 }
 
 export default News;
