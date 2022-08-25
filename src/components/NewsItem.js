@@ -10,7 +10,7 @@ const NewsItem = (props) => {
                         <span className="badge rounded-pill bg-danger">{source}</span>
                     </div>
                     <div className="d-flex flex-wrap" style={{width: "300px", height: "200px"}}>
-                        <img src={ <Spinner/> && imageUrl} alt="..." style={{position:"absolute" , width: "100%", height: "inherit", left:"0"}}/>
+                        <img src={ imageUrl} alt="..." style={{position:"absolute" , width: "100%", height: "inherit", left:"0"}}/>
                     </div>
                     <div className="card-body">
                         <h5 className="card-title">{title}</h5>
