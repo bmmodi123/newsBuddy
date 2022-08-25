@@ -6,7 +6,7 @@ import LoadingBar from 'react-top-loading-bar';
 
 const App = () => {
 
-  const apikey = process.env.REACT_APP_APIKEY;
+  const apikey = process.env.REACT_APP_BART_API_KEY;
   const [progress, setProgress] = useState(0)
   // const newsCategory = ['business','entertainment','environment','food','health','politics','science','sports','technology','top','world'];
   const country = 'in';
