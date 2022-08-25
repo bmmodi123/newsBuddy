@@ -3,6 +3,7 @@ import NewsItem from "./NewsItem";
 import Spinner from "./Spinner";
 import PropTypes from 'prop-types';
 import InfiniteScroll from "react-infinite-scroll-component";
+import noImage from "../assets/noImage.jpg";
 
 const News = (props) => {
 
@@ -68,7 +69,7 @@ const News = (props) => {
                     <NewsItem
                       title={element.title?element.title:"Sorry No Title Found"}
                       description={element.description?element.description:"Sorry No Description Found. Click On Read More To Know More"}
-                      imageUrl={element.image_url?element.image_url:"https://picsum.photos/300/200/?blur=10"}
+                      imageUrl={element.image_url?element.image_url:noImage}
                       newsUrl={element.link}
                       author={element.creator}
                       postDate={element.pubDate}
