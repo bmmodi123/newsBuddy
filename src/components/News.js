@@ -46,7 +46,12 @@ const News = (props) => {
   }
 
   useEffect(() => {
-    document.title = `Top ${capitalize(props.category)} News - NewPanda`;
+    if(props.category !== "top"){
+      document.title = `Top ${capitalize(props.category)} News - NewBuddy`;
+    }
+    else{
+      document.title = `Top General News - NewBuddy`;
+    }
     updateNews();
     //eslint-disable-next-line
   }, [])
