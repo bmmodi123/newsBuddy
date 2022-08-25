@@ -88,12 +88,14 @@ const News = (props) => {
 
 News.defaultProps = {
   country: 'in',
-  category: 'top'
+  category: 'top',
+  apikey: 'pub_10611589d6d9a0a59c4a7bf4e56ef973552b5'
 }
 
 News.propTypes = {
   country: PropTypes.string,
   category: PropTypes.string,
+  apikey: PropTypes.string
 }
 
 export default News;
