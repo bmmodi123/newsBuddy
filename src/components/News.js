@@ -45,12 +45,23 @@ const News = (props) => {
 
   }
 
-  useEffect(() => {
-    if(props.category !== "top"){
-      document.title = `Top ${capitalize(props.category)} News - NewBuddy`;
+  const heading = () =>{
+    if(props.category === "top")
+    {
+      return "General";
+    }
+    else
+    {
+      return capitalize(props.category);
+    }
+  }
+
+  useEffect(() => {;
+    if(props.category === "top" || props.category === ""){
+      document.title = `Top General News - NewBuddy`;
     }
     else{
-      document.title = `Top General News - NewBuddy`;
+      document.title = `Top ${capitalize(props.category)} News - NewBuddy`;
     }
     updateNews();
     //eslint-disable-next-line
@@ -58,7 +69,9 @@ const News = (props) => {
 
   return (
       <>
-        <h1 className="text-center" style={{marginTop:"70px"}}>NewsPanda - Top {capitalize(props.category)} News</h1>
+        <h1 className="text-center" style={{marginTop:"70px"}}>
+          NewsBuddy's Top {heading()} News
+        </h1>
         {loading && <Spinner/>}
 
         <InfiniteScroll
@@ -70,7 +83,7 @@ const News = (props) => {
           <div className="container my-4">
             <div className="row my-2">
               {articles.map((element) => {
-                return <div className="col-md-4 mb-4" key={element.id}>
+                return <div className="col-md-4 mb-4" key={element.link}>
                     <NewsItem
                       title={element.title?element.title:"Sorry No Title Found"}
                       description={element.description?element.description:"Sorry No Description Found. Click On Read More To Know More"}
